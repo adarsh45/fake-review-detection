@@ -61,6 +61,11 @@ function Header() {
           ) : (
             ""
           )}
+          <li className="nav-item">
+            <a className="nav-link active" href="/about">
+              About Us
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

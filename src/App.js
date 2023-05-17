@@ -7,6 +7,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Reviews from "./pages/Reviews";
 import Analysis from "./pages/analysis/Analysis";
 import { ToastContainer } from "react-toastify";
+import About from "./pages/About";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ const router = createBrowserRouter([
           <Analysis />
         </Container>
       </PrivateRoute>
+    ),
+  },
+  {
+    path: "/about",
+    element: (
+      <Container>
+        <About />
+      </Container>
     ),
   },
 ]);
