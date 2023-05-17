@@ -5,6 +5,8 @@ import Container from "./components/Container";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Reviews from "./pages/Reviews";
+import Analysis from "./pages/analysis/Analysis";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -34,9 +36,21 @@ const router = createBrowserRouter([
   {
     path: "/reviews",
     element: (
-      <Container>
-        <Reviews />
-      </Container>
+      <PrivateRoute>
+        <Container>
+          <Reviews />
+        </Container>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/analysis",
+    element: (
+      <PrivateRoute>
+        <Container>
+          <Analysis />
+        </Container>
+      </PrivateRoute>
     ),
   },
 ]);
@@ -45,6 +59,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }

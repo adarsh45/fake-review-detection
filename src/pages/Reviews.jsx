@@ -1,26 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
   const [loading, setLoading] = useState(false);
   const [productURL, setProductURL] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleFetchReviews = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    // Simulating login request
-    setTimeout(() => {
-      // Perform login logic here
-
-      setLoading(false);
-    }, 2000);
+    localStorage.setItem("url", productURL);
+    navigate("/analysis");
   };
   return (
     <div className="container py-4">
       <form
         className="d-flex m-auto text-center flex-column gap-4"
         style={{ width: "30%" }}
-        onSubmit={handleLogin}
+        onSubmit={handleFetchReviews}
       >
         <h2 className="h2">Analyse Reviews</h2>
         <input
@@ -34,7 +30,7 @@ const Reviews = () => {
         <button type="submit" className="btn btn-dark">
           {loading ? (
             <div className="spinner-border text-light" role="status">
-              <span class="sr-only"></span>
+              <span className="sr-only"></span>
             </div>
           ) : (
             "Analyse"

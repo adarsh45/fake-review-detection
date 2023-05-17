@@ -21,26 +21,46 @@ function Header() {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-          {/* <li className="nav-item active">
-            <a className="nav-link" href="/">
-              Home
-            </a>
-          </li> */}
-          <li className="nav-item">
-            <a className="nav-link active" href="/login">
-              Login
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link active" href="/register">
-              Register
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link active" href="/reviews">
-              Reviews
-            </a>
-          </li>
+          {!localStorage.getItem("token") ? (
+            <>
+              <li className="nav-item">
+                <a className="nav-link active" href="/register">
+                  Register
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link active" href="/login">
+                  Login
+                </a>
+              </li>
+            </>
+          ) : (
+            ""
+          )}
+
+          {localStorage.getItem("token") ? (
+            <>
+              <li className="nav-item">
+                <a className="nav-link active" href="/reviews">
+                  Reviews
+                </a>
+              </li>
+              <li
+                className="nav-item"
+                style={{ position: "absolute", right: 0, marginRight: "1rem" }}
+              >
+                <a
+                  className="nav-link active"
+                  href="/"
+                  onClick={() => localStorage.removeItem("token")}
+                >
+                  Logout
+                </a>
+              </li>
+            </>
+          ) : (
+            ""
+          )}
         </ul>
       </div>
     </nav>

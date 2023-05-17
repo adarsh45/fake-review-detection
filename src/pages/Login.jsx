@@ -1,24 +1,51 @@
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "./register.css";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
+    let data = JSON.stringify({
+      username: username,
+      password: password,
+    });
 
-    // Simulating login request
-    setTimeout(() => {
-      // Perform login logic here
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${process.env.REACT_APP_BACKEND_URL}/login`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
 
-      // Reset form fields and loading state
-      setEmail("");
-      setPassword("");
-      setLoading(false);
-    }, 2000);
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        if (response.data.token) {
+          localStorage.setItem("token", response.data.token);
+          toast.success("Logged in successfully!");
+          navigate("/reviews");
+        } else {
+          toast.info(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Credentials are incorrect!");
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -29,8 +56,16 @@ const Login = () => {
         onSubmit={handleLogin}
       >
         <h2 className="h2">Login</h2>
-        <input className="form-control" type="email" placeholder="Email" />
         <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="form-control"
+          type="username"
+          placeholder="Username"
+        />
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="form-control"
           type="password"
           placeholder="Password"
@@ -39,7 +74,7 @@ const Login = () => {
         <button type="submit" className="btn btn-dark">
           {loading ? (
             <div className="spinner-border text-light" role="status">
-              <span class="sr-only"></span>
+              <span className="sr-only"></span>
             </div>
           ) : (
             "Login"

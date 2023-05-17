@@ -1,0 +1,39 @@
+.reviews-container {
+  /* border: 1px solid #ccc; */
+  /* border-radius: 4px; */
+  max-height: calc(100vh - 64px);
+  width: 50vw;
+  overflow-y: auto;
+}
+
+.reviews-container .review-card {
+  border-radius: 8px;
+  /* height: 200px; */
+  overflow-y: hidden;
+}
+
+.reviews-container .positive {
+  background-color: #50dbb4;
+}
+.reviews-container .negative {
+  background-color: #ff6263;
+}
+.reviews-container .neutral {
+  background-color: #cfd8d3;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot.positive {
+  background-color: #50dbb4;
+}
+.dot.negative {
+  background-color: #ff6263;
+}
+.dot.neutral {
+  background-color: #cfd8d3;
+}
