@@ -43,7 +43,11 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Credentials are incorrect!");
+        if (error.response.status === 401) {
+          toast.error("Credentials are incorrect!");
+        } else {
+          toast.error(error.message);
+        }
       })
       .finally(() => setLoading(false));
   };

@@ -40,8 +40,11 @@ const Register = () => {
         navigate("/login");
       })
       .catch((error) => {
-        console.log(error);
-        toast.error("User already exists!");
+        if (error.response.status === 401) {
+          toast.warning("User already exists!");
+        } else {
+          toast.error(error.message);
+        }
       })
       .finally(() => setLoading(false));
   };
